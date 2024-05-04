@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
-from flask_cors import CORS
+from flask_cors import CORS 
 
 api = Blueprint('api', __name__)
 
@@ -12,11 +12,20 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
+@api.route('/signup', methods=['POST'])
+def handle_signup():
+    request_body = request.get_json()
+    print(request_body)
+    email = request_body.get('email')
+    password = request_body.get('password')
+  
+    user = User(email=email, password=password)
+    db.session.add(user)
+    db.session.commit()
+    reponse_body = {
+        'msg': 'User created successfully',
+        'user': user.serialize()
     }
 
-    return jsonify(response_body), 200
+
+    return jsonify(reponse_body), 200
