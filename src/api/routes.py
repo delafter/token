@@ -5,6 +5,10 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
+
 
 api = Blueprint('api', __name__)
 
@@ -15,7 +19,7 @@ CORS(api)
 @api.route('/signup', methods=['POST'])
 def handle_signup():
     request_body = request.get_json()
-    print(request_body)
+   
     email = request_body.get('email')
     password = request_body.get('password')
   
@@ -29,3 +33,17 @@ def handle_signup():
 
 
     return jsonify(reponse_body), 200
+
+@api.route('/login', methods=['POST'])
+def handle_login():
+    request_body = request.get_json()
+    email = request_body.get('email')
+    password = request_body.get('password')
+    user = User.query.filter_by(email=email, password=password).first()
+    if user is None:
+        return jsonify({'msg': 'Error en el email o password'}), 401
+    """ return jsonify( {'msg': 'Email correcto'} ), 200 """
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token), 200
+
+   
