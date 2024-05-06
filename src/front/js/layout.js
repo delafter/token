@@ -7,10 +7,10 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-
+import { Login } from "./pages/login.jsx";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-
+import { Private } from "./pages/private.jsx";
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -26,6 +26,8 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
+                        <Route element={<Login />} path="/login" />
+                        <Route element={<Private />} path="/private" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
