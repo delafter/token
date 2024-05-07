@@ -6,9 +6,9 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS 
 from flask_jwt_extended import create_access_token
-""" from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt_identity """
-
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_cors import CORS
 
 api = Blueprint('api', __name__)
 
@@ -45,7 +45,7 @@ def handle_login():
     user = User.query.filter_by(email=email, password=password).first()
     if user is None:
         return jsonify({'msg': 'Error en el email o password'}), 401
-    """ return jsonify( {'msg': 'Email correcto'} ), 200 """
+   
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token), 200
 
