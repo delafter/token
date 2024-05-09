@@ -14,7 +14,11 @@ export const Private = () => {
             <Link to="/">
                 <button>Go to home</button>
             </Link>
+          {/*   <button onClick={() => actions.logout()}>Logout</button> */}
         </div>
+
+       
+
     );
 }
 

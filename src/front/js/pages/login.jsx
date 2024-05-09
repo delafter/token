@@ -9,22 +9,24 @@ export const Login = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const navigate = useNavigate();
 
+  const handleLogin = () => {
+    actions.getLogin(loginEmail, loginPassword);
+  };
 
   const { store, actions } = useContext(Context);
   useEffect(() => {
     actions.getLogin();
-  } , []);
+  }, []);
 
-/*   useEffect(() => {
-    if (store.token !== '') {
-      navigate('/private');
+ /*    useEffect(() => {
+    if (store.token !== null) {
+      navigate("/private");
     }
-  },[store.token]); */
+  }, [store.token, navigate]); */
 
-
+  console.log(navigate);
   console.log(store);
   return (
-    
     <div className="text-center mt-5">
       <h1>login</h1>
       <p> You need to login to access the content</p>
@@ -48,10 +50,8 @@ export const Login = () => {
           <div className="form-group">
             <label htmlFor="exampleInputPassword1">Password</label>
             <input
-              
               value={store.password}
               onChange={(e) => setLoginPassword(e.target.value)}
-
               type="password"
               className="form-control"
               id="exampleInputPassword1"
@@ -59,16 +59,15 @@ export const Login = () => {
           </div>
         </div>
       </form>
-      <Link to="">
-        <button onClick={() => {
-         
-          actions.getLogin(loginEmail, loginPassword)
-          
-        }}>
-          LOGIN
-        </button>
-        </Link>
-     
+
+      <button
+        onClick={() => {
+          handleLogin();
+          navigate("/private");
+        }}
+      >
+        LOGIN
+      </button>
     </div>
   );
 };

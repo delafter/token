@@ -9,7 +9,8 @@ export const Demo = () => {
 	return (
 		<div className="container">
 		
-		<h1 style={{display:'flex', justifyContent:'center'}}>Demo</h1>
+		
+		<h1 style={{display:'flex', justifyContent:'center'}}>AQUI NO HAY NADA HEHE</h1>
 			<Link to="/">
 				<button className="btn btn-primary">go principal</button>
 			</Link>

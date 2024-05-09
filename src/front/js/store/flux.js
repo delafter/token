@@ -64,7 +64,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           "https://shiny-space-zebra-9775x5x6pjv637xjw-3001.app.github.dev/api/login",
           requestOptions
         )
-          .then((response) => response.json())
+          .then((response) =>{
+            if (!response.ok) {
+                throw new Error("La solicitud no fue exitosa");
+            }
+            return response.json();
+        })
+          
           .then((result) => {
             setStore({ token: result.token });
             setStore({ userId: result.userId });
@@ -73,6 +79,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           .catch((error) => console.log("error", error));
       },
+
+      /* ESTE ES EL LOGOUT */
+
+   
+
+
+
+
+
+
+
+
 
       /* DE AQUI PARA ABAJO NO VALE PARA NADA */ 
       /* DE AQUI PARA ABAJO NO VALE PARA NADA */
