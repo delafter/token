@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       usuario: {},
       userId: {},
-      token: ""
-      
+      token: "",
     },
     actions: {
       /* ESTE ES EL REGISTRO */
@@ -64,35 +65,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           "https://shiny-space-zebra-9775x5x6pjv637xjw-3001.app.github.dev/api/login",
           requestOptions
         )
-          .then((response) =>{
+          .then((response) => {
             if (!response.ok) {
-                throw new Error("La solicitud no fue exitosa");
+              throw new Error("La solicitud no fue exitosa");
             }
             return response.json();
-        })
-          
+          })
+
           .then((result) => {
             setStore({ token: result.token });
             setStore({ userId: result.userId });
             console.log(result);
-          })  
+          })
 
           .catch((error) => console.log("error", error));
       },
 
       /* ESTE ES EL LOGOUT */
 
-   
+      getLogout: async (navigate, token) => {
+        console.log("Saliendo");
+        console.log(token);
 
+        setStore({ token: "" });
+        navigate("/login");
+      },
 
-
-
-
-
-
-
-
-      /* DE AQUI PARA ABAJO NO VALE PARA NADA */ 
+      /* DE AQUI PARA ABAJO NO VALE PARA NADA */
       /* DE AQUI PARA ABAJO NO VALE PARA NADA */
       /* DE AQUI PARA ABAJO NO VALE PARA NADA */
       // Use getActions to call a function within a fuction
